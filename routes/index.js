@@ -7,6 +7,6 @@ routes.get("/lista-cursos", cursosController.lista);
 
 routes.post("/cursos", cursosController.insert);
 
-routes.delete("deleta-cursos/:id", cursosController.delete)
+routes.delete("/deleta-cursos/:id", cursosController.delete)
 
 module.exports = routes;

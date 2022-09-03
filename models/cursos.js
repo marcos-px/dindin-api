@@ -24,14 +24,5 @@ fs.writeFileSync(
 return novoCurso;
 }
 
-function deleteCurso(id){
-    const excluiCurso = {
-        id: id,
-    };
-
-listCursos.find(excluiCurso);
-
-}
-
-module.exports = { getlistCursos, insertCurso, deleteCurso };
+module.exports = { getlistCursos, insertCurso};
 

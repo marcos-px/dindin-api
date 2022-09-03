@@ -1,5 +1,7 @@
 const cursosModel = require("../models/cursos");
-const cursosOk = [];
+
+
+const cursos = require("../database/cursos.json");
 
 const cursosController={
     lista: (req,res)=>{
@@ -19,18 +21,16 @@ const cursosController={
         res.status(204).json(novoCurso);
     },
 
+
     delete: (req,res) => {
-        const {id} = req.params.id;
-        const deleted = cursosModel.find(cursosModel => cursosModel.id === id)
-        if(deleted){
-            console.log(deleted)
-            cursosOk = cursosOk.filter(cursosModel => cursosModel.id !== id);
-            res.status(204).json(deleted);
-        }else{
-            console.log(deleted);
-            res.status(404).json({message: "Conexão falhou!"})
-        }
-    }
-};
+    const { id } = req.params;
+    const cursosIndex = cursos.findIndex(cursos => cursos.id === id);
+
+    cursos.splice(cursosIndex, 1);
+
+    return res.status(204).send(console.log("Deletado com sucesso!"));
+    
+}};
+
 
 module.exports = cursosController;
