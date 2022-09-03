@@ -29,7 +29,7 @@ function deleteCurso(id){
         id: id,
     };
 
-listCursos.filter(excluiCurso);
+listCursos.find(excluiCurso);
 
 }
 

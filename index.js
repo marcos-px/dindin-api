@@ -1,9 +1,9 @@
 const express = require('express');
 const routes = require('./routes');
-
+const PORT = process.env.PORT || 8000;
 const server = express();
 
 server.use(express.json());
 server.use(routes);
 
-server.listen(8000, ()=> console.log("Servidor rodando na porta 8000"))
+server.listen(PORT, ()=> console.log("Servidor rodando na porta:" + PORT))
