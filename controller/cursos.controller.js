@@ -1,7 +1,7 @@
 const cursosModel = require("../models/cursos");
 
-
 const cursos = require("../database/cursos.json");
+const { patch } = require("../routes");
 
 const cursosController={
     lista: (req,res)=>{
@@ -24,13 +24,21 @@ const cursosController={
 
     delete: (req,res) => {
     const { id } = req.params;
-    const cursosIndex = cursos.findIndex(cursos => cursos.id === id);
+    const cursosIndex = cursosModel.excluiCurso(id);
 
-    cursos.splice(cursosIndex, 1);
+    return res.status(204).send(console.log("Deletado com sucesso!" + "  " + id));
+},
 
-    return res.status(204).send(console.log("Deletado com sucesso!"));
-    
-}};
+    put: (req,res)=>{
+        const { id } = +req.params;
+        const body = req.body;
+        const cursosIndex = cursosModel.atualizaCurso(id);
+        const atualizaCurso = {id:id, ...body};
+        cursosModel[cursosIndex] = atualizaCurso;
+        console.log(body);
+        res.status(204).send(console.log("Atualizado com sucesso!" + id));
+    } //manutenção
+};
 
 
 module.exports = cursosController;

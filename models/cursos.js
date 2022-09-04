@@ -1,6 +1,7 @@
 const listCursos = require("../database/cursos.json");
 const fs = require('fs');
 const path = require('path');
+const { randomUUID } = require('crypto');
 
 function getlistCursos() {
     return listCursos;
@@ -8,21 +9,35 @@ function getlistCursos() {
 
 function insertCurso(id,titulo, descricao, professor){
     const novoCurso = {
-        id: id,
+        id: randomUUID(),
         titulo: titulo,
         descricao: descricao,
         professor: professor
     };
-
+    cursoOK()
 listCursos.push(novoCurso);
-
-fs.writeFileSync(
-    path.resolve("database", "cursos.json"),
-    JSON.stringify(listCursos)
-);
 
 return novoCurso;
 }
+function cursoOK(){ 
+    fs.writeFileSync(
+        path.resolve("database", "cursos.json"),
+        JSON.stringify(listCursos)
+    );
+}
 
-module.exports = { getlistCursos, insertCurso};
+
+function excluiCurso(id) {
+    const cursosIndex = listCursos.findIndex(cursos => cursos.id === id);
+    listCursos.splice(cursosIndex, 1);
+    cursoOK()
+}
+
+function atualizaCurso(id) {
+    const cursosIndex = listCursos.findIndex(cursos => cursos.id === id);
+    listCursos.splice(cursosIndex, 1);
+    cursoOK() //manutenção
+}
+
+module.exports = { getlistCursos, insertCurso, excluiCurso, atualizaCurso};
 
